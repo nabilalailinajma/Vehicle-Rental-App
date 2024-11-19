@@ -1,6 +1,7 @@
 from prettytable import PrettyTable
 from datetime import datetime
 from datetime import timedelta
+import sys
 
 kendaraan = [
     {
@@ -77,11 +78,19 @@ header_penyewaan = ["Plat", "Jenis", "Merek", "Nama Penyewa", "Tanggal Sewa", "T
 # HELPER START
 def validate_plat(): #Validasi apakah format plat sudah sesuai atau belum
   while True:
-    plat = input("Masukkan plat kendaraan (format: 'B 1234 ABC'): ").upper()
+    plat = input("Masukkan plat kendaraan (Ketik 'Y' untuk menampilkan ketentuan plat): ").upper()
     plat_list = plat.split(" ")
 
     error_message = "Format salah. Pastikan plat memiliki format 'B 1234 ABC'."
-
+    
+    if (plat == 'Y'):
+        print("Ketentuan plat kendaraan:\n")
+        print("1. Kendaraan terdiri dari tiga bagian yang dipisahkan oleh spasi (Contoh: 'B 1234 ABC')")
+        print("2. Bagian pertama terdiri dari 1 s/d 2 huruf")
+        print("3. Bagian kedua terdiri dari 1 s/d 4 digit angka")
+        print("4. Bagian ketida terdiri dari 1 s/d 3 huruf\n")
+        continue
+    
     if len(plat_list) != 3: # Cek apakah plat memiliki tepat 3 bagian
       print(error_message)
       continue
@@ -122,7 +131,6 @@ def validate_tanggal():
     except ValueError:
       print("Input tidak valid! Masukkan angka.")
 
-
 def lanjutkan(konfirmasi):
   while True:
     validasi = input(konfirmasi + " (Y/N): ").upper()
@@ -148,12 +156,13 @@ def tampilkan_kendaraan(data): #Pretty Table untuk menampilkan data
 
 def tampilkan_penyewaan(data):
     if not penyewaan:
-        print("Tidak ada kendaraan yang sedang disewa.")
+        print("\nTidak ada kendaraan yang sedang disewa.")
     else:
         table = PrettyTable()
         table.field_names = header_penyewaan
         for sewa in data:
             table.add_row(sewa.values())
+        print("\nBerikut adalah Kendaraan yang telah disewa")
         print(table)
 
 def check_status_pajak(masa_berlaku):
@@ -185,7 +194,7 @@ def cari_penyewaan(plat_cari):
         if data["plat"] == plat_cari: # Mencari kendaraan berdasarkan plat
             return data  # Mengembalikan data jika ditemukan
 
-    print("Kendaraan dengan plat tersebut tidak ditemukan.")
+    print("Kendaraan dengan plat tersebut tidak ditemukan")
     return None  # Jika plat tidak ditemukan
 
 def kendaraan_tersedia():
@@ -363,30 +372,36 @@ def cek_gangen():
                 elif pilihan == 2:
                     cek_gangen_by_input()
                 elif pilihan == 3:
-                    break
+                    menu_read()
                 else:
                     print("Pilihan tidak valid. Silakan pilih lagi.")
             except ValueError:
                 print("Pilihan tidak valid. Silakan pilih lagi.")
 
 def bubble_sort_asc(field="harga_pajak"):
-    n = len(kendaraan)
+    data = kendaraan.copy()
+    n = len(data)
     # Melakukan Bubble Sort
     for i in range(n):
         for j in range(0, n-i-1):
-            if kendaraan[j][field] > kendaraan[j+1][field]:
-                # Tukar posisi jika harga pajak kendaraan[j] lebih besar dari harga pajak kendaraan[j+1]
-                kendaraan[j], kendaraan[j+1] = kendaraan[j+1], kendaraan[j]
+            if data[j][field] > data[j+1][field]:
+                # Tukar posisi jika harga pajak data[j] lebih besar dari harga pajak data[j+1]
+                data[j], data[j+1] = data[j+1], data[j]
+                
+    return data
 
 def bubble_sort_desc(field="harga_pajak"):
-    n = len(kendaraan)
+    data = kendaraan.copy()
+    n = len(data)
     # Melakukan Bubble Sort untuk urutan menurun (descending)
     for i in range(n):
         for j in range(0, n-i-1):
-            # Jika harga pajak kendaraan[j] lebih kecil dari harga pajak kendaraan[j+1]
-            if kendaraan[j][field] < kendaraan[j+1][field]:
+            # Jika harga pajak data[j] lebih kecil dari harga pajak data[j+1]
+            if data[j][field] < data[j+1][field]:
                 # Tukar posisi jika kondisi tersebut terpenuhi
-                kendaraan[j], kendaraan[j+1] = kendaraan[j+1], kendaraan[j]
+                data[j], data[j+1] = data[j+1], data[j]
+    
+    return data
 
 def get_pajak_terkecil(kendaraan):
     # Menginisialisasi kendaraan dengan pajak terkecil
@@ -421,7 +436,7 @@ def get_biaya_pajak():
                 print("5. Kembali ke Menu Lihat Daftar Kendaraan")            
                 print("|===========================================================|")
 
-                pilihan = int(input("Pilih menu (1-4): "))
+                pilihan = int(input("Pilih menu (1-5): "))
 
                 if pilihan == 1:
                     kendaraan_terkecil = get_pajak_terkecil(kendaraan)
@@ -432,19 +447,53 @@ def get_biaya_pajak():
                     print("\nKendaraan dengan Pajak Terbesar:")
                     tampilkan_kendaraan([kendaraan_terbesar])  # Menampilkan kendaraan terbesar
                 elif pilihan == 3:
-                    bubble_sort_asc()
-                    print("\nKendaraan Diurutkan berdasarkan Pajak Terkecil:")
-                    tampilkan_kendaraan(kendaraan)  # Menampilkan kendaraan yang sudah diurutkan
+                    print("\nKendaraan diurutkan berdasarkan Pajak Terkecil:")
+                    tampilkan_kendaraan(bubble_sort_asc())  # Menampilkan kendaraan yang sudah diurutkan
                 elif pilihan == 4:
-                    bubble_sort_desc()
-                    print("\nKendaraan Diurutkan berdasarkan Pajak Terbesar:")
-                    tampilkan_kendaraan(kendaraan)  # Menampilkan kendaraan yang sudah diurutkan
+                    print("\nKendaraan diurutkan berdasarkan Pajak Terbesar:")
+                    tampilkan_kendaraan(bubble_sort_desc())  # Menampilkan kendaraan yang sudah diurutkan
                 elif pilihan == 5:
-                    break
+                    menu_read()
                 else:
                     print("Pilihan tidak valid. Silakan pilih lagi.")
             except ValueError:
                 print("Pilihan tidak valid. Silakan pilih lagi.")
+
+def menu_read():
+    while True:
+        try:
+            print("\n|=============== Menu Lihat Daftar Kendaraan ===============|")
+            print("1. Menampilkan Semua Kendaraan")
+            print("2. Mencari Kendaraan berdasarkan Plat")
+            print("3. Mencari kendaraan berdasarkan Jenis")
+            print("4. Mencari Kendaraan berdasarkan Status Pajak")
+            print("5. Mengecek Ketersediaan Kendaraan jika Ganjil-Genap")
+            print("6. Mencari Biaya Pajak")
+            print("7. Kembali ke Menu Utama")
+            print("|===========================================================|")
+
+            pilihan = int(input("Pilih menu (1-7): "))
+
+            if pilihan == 1:
+                print("\nBerikut adalah daftar semua kendaraan")
+                get_kendaraan()
+            elif pilihan == 2:
+                get_kendaraan_by_plat()
+            elif pilihan == 3:
+                get_kendaraan_by_jenis()
+            elif pilihan == 4:
+                get_kendaraan_by_status_pajak()
+            elif pilihan == 5:
+                cek_gangen()
+            elif pilihan == 6:
+                get_biaya_pajak()
+            elif pilihan == 7:
+                main_menu()
+            else:
+                print("Pilihan tidak valid. Silakan pilih lagi.")
+
+        except ValueError:
+            print("Pilihan tidak valid. Silakan pilih lagi.")
 
 def add_kendaraan():
     while True:
@@ -498,42 +547,7 @@ def menu_create():
             if pilihan == "1":
                 add_kendaraan()
             elif pilihan == "2":
-                break
-            else:
-                print("Pilihan tidak valid. Silakan pilih lagi.")
-        except ValueError:
-            print("Pilihan tidak valid. Silakan pilih lagi.")
-
-def menu_read():
-    while True:
-        try:
-            print("\n|=============== Menu Lihat Daftar Kendaraan ===============|")
-            print("1. Menampilkan Semua Kendaraan")
-            print("2. Mencari Kendaraan berdasarkan Plat")
-            print("3. Mencari kendaraan berdasarkan Jenis")
-            print("4. Mencari Kendaraan berdasarkan Status Pajak")
-            print("5. Mengecek Ketersediaan Kendaraan jika Ganjil-Genap")
-            print("6. Mencari Biaya Pajak")
-            print("7. Kembali ke Menu Utama")
-            print("|===========================================================|")
-
-            pilihan = int(input("Pilih menu (1-7): "))
-
-            if pilihan == 1:
-                print("\nBerikut Adalah Daftar Semua Kendaraan")
-                get_kendaraan()
-            elif pilihan == 2:
-                get_kendaraan_by_plat()
-            elif pilihan == 3:
-                get_kendaraan_by_jenis()
-            elif pilihan == 4:
-                get_kendaraan_by_status_pajak()
-            elif pilihan == 5:
-                cek_gangen()
-            elif pilihan == 6:
-                get_biaya_pajak()
-            elif pilihan == 7:
-                break
+                main_menu()
             else:
                 print("Pilihan tidak valid. Silakan pilih lagi.")
         except ValueError:
@@ -541,6 +555,7 @@ def menu_read():
 
 def update_kendaraan():
     while True:
+        tampilkan_kendaraan(kendaraan)
         plat = validate_plat()
 
         kendaraan_data = cari_kendaraan(plat)
@@ -562,7 +577,7 @@ def update_kendaraan():
                 break
             else:
                 continue
-            
+
         while True:
             # Memilih kolom yang ingin diubah
             print("\n|===============Pilih data yang ingin diubah:===============|")
@@ -623,7 +638,7 @@ def menu_update():
             if pilihan == 1:
                 update_kendaraan()
             elif pilihan == 2:
-                break
+                main_menu()
             else:
                 print("Pilihan tidak valid. Silakan pilih lagi.")
         except ValueError:
@@ -631,6 +646,7 @@ def menu_update():
 
 def hapus_kendaraan():
     while True:
+        tampilkan_kendaraan(kendaraan)
         plat = validate_plat()
 
         kendaraan_data = cari_kendaraan(plat)
@@ -672,7 +688,7 @@ def menu_delete():
             if pilihan == 1:
                 hapus_kendaraan()
             elif pilihan == 2:
-                break
+                main_menu()
             else:
                 print("Pilihan tidak valid. Silakan pilih lagi.")
         except ValueError:
@@ -696,7 +712,7 @@ def sewa_kendaraan():
             print("\nData kendaraan yang kamu pilih untuk disewa:")
             tampilkan_kendaraan([kendaraan_data])
             
-            nama_penyewa = input("Masukkan nama penyewa: ")
+            nama_penyewa = input("Masukkan Nama Penyewa: ").capitalize()
             tanggal_sewa = datetime.now().strftime("%Y-%m-%d")
             # Menghitung tanggal kembali (misalnya 7 hari kemudian)
             tanggal_kembali = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
@@ -720,25 +736,30 @@ def sewa_kendaraan():
         print(f"Kendaraan dengan plat {plat} tidak ditemukan dalam sistem.")
 
 def kembalikan_kendaraan():
-    plat = validate_plat()
-    if plat_exist(plat):
-        # Mencari kendaraan yang sedang disewa berdasarkan plat
-        penyewa_data = cari_penyewaan(plat)
-        
-        if penyewa_data:
-            # Menampilkan data penyewaan yang akan dikembalikan
-            print()
-            tampilkan_penyewaan([penyewa_data])
-            
-            if lanjutkan("Apakah Anda yakin ingin mengembalikan kendaraan ini?"):
-                penyewaan.remove(penyewa_data)
-                print(f"Kendaraan dengan plat {plat} telah berhasil dikembalikan.")
-            else:
-                print("Pengembalian dibatalkan.")
-        else:
-            print(f"Kendaraan dengan plat {plat} tidak ditemukan dalam penyewaan.")
+    if not penyewaan:
+        tampilkan_penyewaan(penyewaan)
+        menu_sewa()
     else:
-        print(f"Kendaraan dengan plat {plat} tidak ditemukan dalam sistem.")
+        tampilkan_penyewaan(penyewaan)
+        plat = validate_plat()
+        if plat_exist(plat):
+            # Mencari kendaraan yang sedang disewa berdasarkan plat
+            penyewa_data = cari_penyewaan(plat)
+            
+            if penyewa_data:
+                # Menampilkan data penyewaan yang akan dikembalikan
+                print()
+                tampilkan_penyewaan([penyewa_data])
+                
+                if lanjutkan("Apakah Anda yakin ingin mengembalikan kendaraan ini?"):
+                    penyewaan.remove(penyewa_data)
+                    print(f"Kendaraan dengan plat {plat} telah berhasil dikembalikan.")
+                else:
+                    print("Pengembalian dibatalkan.")
+            else:
+                print(f"Kendaraan dengan plat {plat} tidak ditemukan dalam penyewaan.")
+        else:
+            print(f"Kendaraan dengan plat {plat} tidak ditemukan dalam sistem.")
 
 def menu_sewa():
     while True:
@@ -757,43 +778,45 @@ def menu_sewa():
             elif pilihan == 2:
                 kembalikan_kendaraan()
             elif pilihan == 3:
-                print("\nBerikut adalah Kendaraan yang Telah Disewa")
                 tampilkan_penyewaan(penyewaan)
             elif pilihan == 4:
-                break
+                main_menu()
             else:
                 print("Pilihan tidak valid. Silakan pilih lagi.")
         except ValueError:
             print("Pilihan tidak valid. Silakan pilih lagi.")
 
-while True:
-    try:
-        print("\n|==================== Kendaraan Tracker ====================|")
-        print("1. Lihat Daftar Kendaraan")
-        print("2. Menambah Daftar Kendaraan")
-        print("3. Mengubah Daftar Kendaraan")
-        print("4. Menghapus Daftar Kendaraan")
-        print("5. Penyewaan Kendaraan")
-        print("6. Keluar Program")
-        print("|===========================================================|")
+def main_menu():
+    while True:
+        try:
+            print("\n|==================== Kendaraan Tracker ====================|")
+            print("1. Lihat Daftar Kendaraan")
+            print("2. Menambah Daftar Kendaraan")
+            print("3. Mengubah Daftar Kendaraan")
+            print("4. Menghapus Daftar Kendaraan")
+            print("5. Penyewaan Kendaraan")
+            print("6. Keluar Program")
+            print("|===========================================================|")
 
-        pilihan = int(input("Pilih menu (1-5): "))
+            pilihan = int(input("Pilih menu (1-6): "))
 
-        if pilihan == 1:
-            menu_read()
-        if pilihan == 2:
-            menu_create()
-        if pilihan == 3:
-            menu_update()
-        elif pilihan == 4:
-            menu_delete()
-        elif pilihan == 5:
-            menu_sewa()
-        elif pilihan == 6:
-            print("Terima kasih telah menggunakan program kami!")
-            break
-        else:
+            if pilihan == 1:
+                menu_read()
+            elif pilihan == 2:
+                menu_create()
+            elif pilihan == 3:
+                menu_update()
+            elif pilihan == 4:
+                menu_delete()
+            elif pilihan == 5:
+                menu_sewa()
+            elif pilihan == 6:
+                print("Terima kasih telah menggunakan program kami!\n")
+                sys.exit()
+            else:
+                print("Pilihan tidak valid. Silakan pilih lagi.")
+        
+        except ValueError:
             print("Pilihan tidak valid. Silakan pilih lagi.")
-    
-    except ValueError:
-       print("Pilihan tidak valid. Silakan pilih lagi.")
+
+main_menu()
