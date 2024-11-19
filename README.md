@@ -1,6 +1,6 @@
 ## README.md
 # Aplikasi Kendaraan Tracker
-by : Nabila Lailinajma JCDS 27040020
+by : Nabila Lailinajma JCDS 2704020
 
 Deskripsi:
 Aplikasi Python sederhana ini dirancang untuk mengelola data kendaraan, mulai dari penambahan, penghapusan, hingga penyewaan kendaraan. Aplikasi ini menggunakan struktur data dictionary untuk menyimpan informasi kendaraan dan modul prettytable untuk menampilkan data dalam format tabel yang mudah dibaca.
