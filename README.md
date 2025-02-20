@@ -29,6 +29,59 @@ Vehicle Tracker is a Python-based CRUD (Create, Read, Update, Delete) applicatio
   - All registered vehicles
   - Vehicles currently rented
   - Vehicles with expired tax
- 
+
+## Requirements
+- Python 3.x
+- PrettyTable module
+
+## Installation
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/username/Vehicle-Tracker.git
+2. **Navigate to the Project Directory**
+   cd Vehicle-Tracker
+3. **Install Dependencies**
+   pip install prettytable
+4. **Run the Program**
+   python vehicle_tracker.py
+
+## Menu
+Upon running the script, you will be presented with the main menu:
+```
+Welcome to Vehicle Rental Management System
+
+Main Menu:
+1. Show Vehicle Data
+  1.1. View All Vehicles
+  1.2. Search by License Plate
+  1.3. Search by Vehicle Type
+  1.4. Search by Tax Status
+  1.5. Check Availability (Odd-Even System)
+  1.6. Find Tax Costs
+    1.6.1. Show Lowest Tax Cost
+    1.6.2. Show Highest Tax Cost
+    1.6.3. Sort Vehicles by Lowest Tax
+    1.6.4. Sort Vehicles by Highest Tax
+2. Add New Vehicle
+3. Update Vehicle Data
+4. Delete Vehicle
+5. Rental Management
+  5.1 Rent a Vehicle
+  5.2. Return a Vehicle
+  5.3. View Rental Records
+6. Exit
+```
+
+## Data Structure
+The vehicle data is stored in a dictionary with the following keys:
+- `plat`: List of vehicle license plates.
+- `jenis`: List of vehicle types (car, motorcycle, truck, etc.).
+- `merek`: List of vehicle brands.
+- `status_pajak`: List of tax statuses (active, expired).
+- `harga_pajak` : Price of the tax vehicle (in rupiah)
+- `masa_berlaku`: List of tax validity periods.
+
+## Contribution
+Contributions are welcome! Feel free to suggest improvements, report issues, or submit pull requests on GitHub.
 
 Developed by: Nabila Lailinajma 
