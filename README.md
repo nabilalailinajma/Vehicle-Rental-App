@@ -1,4 +1,5 @@
 # Vehicle Rental Management System
+Developed by: Nabila Lailinajma 
 
 ## Overview:
 Vehicle Tracker is a Python-based CRUD (Create, Read, Update, Delete) application for managing vehicle data. It enables users to search, add, update, delete, rent, and return vehicles efficiently. The program utilizes dictionaries to store data and the PrettyTable module for structured tabular output.
@@ -86,5 +87,3 @@ The vehicle data is stored in a dictionary with the following keys:
 
 ## Contribution
 Contributions are welcome! Feel free to suggest improvements, report issues, or submit pull requests on GitHub.
-
-Developed by: Nabila Lailinajma 
