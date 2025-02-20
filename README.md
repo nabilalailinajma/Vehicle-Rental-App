@@ -1,4 +1,4 @@
-# Aplikasi Kendaraan Tracker
+# Vehicle Rental Management System
 
 ## Overview:
 Vehicle Tracker is a Python-based CRUD (Create, Read, Update, Delete) application for managing vehicle data. It enables users to search, add, update, delete, rent, and return vehicles efficiently. The program utilizes dictionaries to store data and the PrettyTable module for structured tabular output.
