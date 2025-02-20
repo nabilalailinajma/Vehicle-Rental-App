@@ -39,10 +39,13 @@ Vehicle Tracker is a Python-based CRUD (Create, Read, Update, Delete) applicatio
    ```bash
    git clone https://github.com/username/Vehicle-Tracker.git
 2. **Navigate to the Project Directory**
+   
    cd Vehicle-Tracker
-3. **Install Dependencies**
+4. **Install Dependencies**
+   
    pip install prettytable
-4. **Run the Program**
+6. **Run the Program**
+   
    python vehicle_tracker.py
 
 ## Menu
