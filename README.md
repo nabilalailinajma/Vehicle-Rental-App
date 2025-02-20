@@ -1,33 +1,34 @@
 # Aplikasi Kendaraan Tracker
 
 ## Overview:
----
 Vehicle Tracker is a Python-based CRUD (Create, Read, Update, Delete) application for managing vehicle data. It enables users to search, add, update, delete, rent, and return vehicles efficiently. The program utilizes dictionaries to store data and the PrettyTable module for structured tabular output.
 
-#### Fitur Utama:
-1. Pencarian Kendaraan: Mencari kendaraan berdasarkan plat nomor, jenis, status pajak, atau kriteria lainnya.
-2. Penambahan Kendaraan: Menambahkan data kendaraan baru ke dalam sistem, termasuk plat nomor, jenis, merek, status pajak, masa berlaku pajak, dan harga pajak.
-3. Pengubahan Kendaraan: Mengubah data kendaraan baru ke dalam sistem, termasuk plat nomor, jenis, merek, status pajak, masa berlaku pajak, dan harga pajak.
-4. Penghapusan Kendaraan: Menghapus data kendaraan yang sudah tidak diperlukan.
-Pembaruan Data Kendaraan: Mengubah data kendaraan yang sudah ada, seperti jenis, merek, masa berlaku pajak, dan harga pajak.
-5. Penyewaan Kendaraan: Mencatat data penyewaan kendaraan, termasuk nama penyewa, tanggal sewa, dan tanggal pengembalian.
-6. Pengembalian Kendaraan: Menghapus data penyewaan kendaraan yang sudah dikembalikan.
-Cek Ketersediaan Kendaraan: Memeriksa ketersediaan kendaraan berdasarkan plat nomor atau tanggal (ganjil-genap).
-7. Laporan: Menampilkan berbagai laporan, seperti daftar semua kendaraan, kendaraan dengan pajak mati, kendaraan yang sedang disewa, dll.
+## Features
+### 🚗 Vehicle Management
+- **Show Vehicle Data**
+  - View all vehicle details
+  - Search vehicles by license plate, type, or tax status
+  - Display vehicles with expired taxes
+- **Add Vehicle**
+  - Enter vehicle details such as license plate, type, brand, tax status, and tax validity period
+- **Update Vehicle Data**
+  - Modify registered vehicle information
+- **Delete Vehicle**
+  - Remove vehicles that are no longer needed
 
-#### Cara Penggunaan:
-1. Jalankan Program: Jalankan file Python yang berisi kode ini.
-2. Pilih Menu: Program akan menampilkan menu utama dengan berbagai pilihan.
-3. Ikuti Petunjuk: Ikuti petunjuk pada layar untuk melakukan operasi yang diinginkan.
+### 📋 Rental System
+- **Rent a Vehicle**
+  - Record rental information (renter’s name, rental date, and return date)
+- **Return a Vehicle**
+  - Process vehicle returns and update availability
+- **Check Availability**
+  - Verify vehicle availability based on license plate or date (odd-even system)
 
-#### Teknologi yang Digunakan:
-- Python: Bahasa pemrograman utama untuk pengembangan aplikasi.
-- PrettyTable: Modul Python untuk menampilkan data dalam format tabel yang rapi.
-- Datetime: Modul bawaan Python untuk memanipulasi tanggal dan waktu.
-Struktur Program:
-
-#### Catatan:
-- Kode ini masih dapat dioptimasi dan dikembangkan lebih lanjut sesuai dengan kebutuhan.
-- Untuk menjalankan program ini, pastikan Anda telah menginstal library prettytable menggunakan perintah pip install prettytable.
+### 📊 Reports & Insights
+- Generate reports on:
+  - All registered vehicles
+  - Vehicles currently rented
+  - Vehicles with expired tax
+ 
 
 Developed by: Nabila Lailinajma 
