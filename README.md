@@ -1,9 +1,8 @@
-## README.md
 # Aplikasi Kendaraan Tracker
-by : Nabila Lailinajma JCDS 2704020
 
-Deskripsi:
-Aplikasi Python sederhana ini dirancang untuk mengelola data kendaraan, mulai dari penambahan, penghapusan, hingga penyewaan kendaraan. Aplikasi ini menggunakan struktur data dictionary untuk menyimpan informasi kendaraan dan modul prettytable untuk menampilkan data dalam format tabel yang mudah dibaca.
+## Overview:
+---
+Vehicle Tracker is a Python-based CRUD (Create, Read, Update, Delete) application for managing vehicle data. It enables users to search, add, update, delete, rent, and return vehicles efficiently. The program utilizes dictionaries to store data and the PrettyTable module for structured tabular output.
 
 #### Fitur Utama:
 1. Pencarian Kendaraan: Mencari kendaraan berdasarkan plat nomor, jenis, status pajak, atau kriteria lainnya.
@@ -30,3 +29,5 @@ Struktur Program:
 #### Catatan:
 - Kode ini masih dapat dioptimasi dan dikembangkan lebih lanjut sesuai dengan kebutuhan.
 - Untuk menjalankan program ini, pastikan Anda telah menginstal library prettytable menggunakan perintah pip install prettytable.
+
+Developed by: Nabila Lailinajma 
